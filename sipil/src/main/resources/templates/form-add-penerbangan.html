@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Tambah Penerbangan')"></nav>
+<form th:action="@{/penerbangan/tambah}" th:object="${penerbangan}" method="POST">
+    <div class="d-flex justify-content-center">
+        <div class="card w-50 mt-2">
+            <div class="card-header text-center"><h3>Tambah Penerbangan</h3></div>
+            <div class="card-body">
+                Kode Penerbangan : <br>
+                <input type="text" name="kode" class="form-control"/>
+                <br><br>
+                Waktu : <br>
+                <input type="datetime-local" name="waktu" class="form-control"/>
+                <br><br>
+                Kota Asal : <br>
+                <input type="text" name="kota_asal" class="form-control">
+                <br><br>
+                Kota Tujuan : <br>
+                <input type="text" name="kota_tujuan" class="form-control">
+                <br><br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div th:if="${teks != null}">
+                    <p th:text="${teks}"></p>
+                </div>
+                <a th:href="@{/penerbangan/viewall}" class="p-3">Back</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div th:include="fragments/fragment :: footer"></div>
+</body>
+</html>

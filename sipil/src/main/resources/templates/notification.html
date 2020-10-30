@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Notification')"></nav>
+<div class="container h-100" style="margin-top: 9%">
+    <div class="row align-items-center h-100">
+        <div class="col-6 mx-auto">
+            <div class="jumbotron">
+                <h2 th:text="${teks}" class="align-middle"></h2>
+                <a href="/penerbangan" class="btn btn-primary btn-lg text-center"> Daftar Penerbangan</a>
+                <a href="/pilot" class="btn btn-primary btn-lg text-center"> Daftar Pilot </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:include="fragments/fragment :: footer"></div>
+</body>
+</html>

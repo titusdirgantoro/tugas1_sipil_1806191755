@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Update Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Update Pilot')"></nav>
+
+<form th:action="@{/pilot/ubah/} + ${pilot.nip}" th:object="${pilot}" method="POST">
+    <div class="d-flex justify-content-center">
+        <div class="card w-50 mt-2">
+            <div class="card-header text-center"><h3>Update Pilot</h3></div>
+            <div class="card-body">
+                <input type="hidden" th:field="*{id}"/>
+                Nama : <br>
+                <input type="text" name="nama" class="form-control" th:value="*{nama}"/>
+                <br><br>
+                <input type="hidden" name="nip" th:value="*{nip}"/>
+                NIK : <br>
+                <input type="text" name="nik" class="form-control" th:value="*{nik}"/>
+                <br><br>
+                Tempat Lahir : <br>
+                <input type="text" name="tempat_lahir" class="form-control" th:value="*{tempat_lahir}">
+                <br><br>
+                Tanggal Lahir : <br>
+                <input type="date" name="tanggal_lahir" class="form-control" th:value="*{tanggal_lahir}">
+                <br><br>
+                Jenis Kelamin : <br>
+                <select name="jenis_kelamin" class="form-control" >
+                    <option value="1">Laki - Laki</option>
+                    <option value="2">Perempuan</option>
+                </select>
+                <br><br>
+                Sekolah : <br>
+                <select name="akademi" class="form-control" >
+                    <option th:each="akademi : ${listAkademi}" th:value="${akademi.id}" th:text="${akademi.nama}"></option>
+                </select>
+                <br><br>
+                Maskapai : <br>
+                <select name="maskapai" class="form-control">
+                    <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.id}" th:text="${maskapai.nama}"></option>
+                </select>
+                <br><br>
+                <button type="submit" class=" btn btn-primary">Submit</button>
+                <a th:href="@{/pilot/viewall}">Back</a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${teks != null}">
+        <p th:text="${teks}"></p>
+    </div>
+
+</form>
+
+<div th:include="fragments/fragment :: footer"></div>
+</body>
+</html>

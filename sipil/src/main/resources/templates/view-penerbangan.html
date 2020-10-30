@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Detail Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('View Penerbangan')"></nav>
+<div class="d-flex justify-content-center" th:object="${penerbangan}">
+    <div class="card mt-2" style="width: 30%">
+        <div class="card-header text-center"><h3>Detail Penerbangan</h3></div>
+        <div class="card-body">
+            <table class="ml-3" >
+                <tr>
+                    <td th:text="'Id'"></td>
+                    <td></td>
+                    <td th:text="': ' + *{id}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Kode Penerbangan'"></td>
+                    <td></td>
+                    <td th:text="': ' + *{kode}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Waktu'"></td>
+                    <td></td>
+                    <td th:text="': ' + *{waktu}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Kota Asal'"></td>
+                    <td></td>
+                    <td th:text="': ' + *{kota_asal}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Kota Tujuan'"></td>
+                    <td></td>
+                    <td th:text="': ' + *{kota_tujuan}"></td>
+                </tr>
+                <tr th:if="${listPilotPenerbangan.size() > 0 }">
+                    <td th:text="'Tanggal Penugasan'"></td>
+                    <td></td>
+                    <td th:text="': ' + ${listPilotPenerbangan.get(listPilotPenerbangan.size()-1).tanggal_penugasan}"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><a th:href="@{/penerbangan/ubah/} + ${penerbangan.id}" class="btn btn-sm btn-warning">Ubah</a>
+                        <a th:href="@{/penerbangan/hapus/} + ${penerbangan.id}" class="btn btn-sm btn-danger">Hapus</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="w-50">
+        <p>Pilih Pilot :</p>
+        <form th:action="@{/penerbangan/} + ${penerbangan.id} + '/pilot/tambah'" th:object="${pilot_penerbangan}" method="POST">
+            <input type="hidden" th:value="${penerbangan.id}" name="penerbangan"/>
+            <select name="pilot">
+                <option th:each="pilot : ${listPilot1}" th:value="${pilot.id}" th:text="${pilot.nama}"></option>
+            </select>
+            <input type="hidden" name="tanggal_penugasan" th:value="${#dates.format(standardDate, 'dd-MMMM-yyyy')}">
+            <button type="submit" class=" btn btn-primary">Tambah</button>
+            </form>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="card w-50">
+        <div class="card-body">
+            <div class="card-title text-center"><h3>DAFTAR PILOT</h3></div>
+            <table class="table">
+                <thead class="thead-light table-borderless">
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>NIP</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                </tr>
+                </thead>
+                <tr th:each="pilot, iterationStatus : ${listPilot}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${pilot.nama}"></td>
+                    <td th:text="${pilot.nip}"></td>
+                    <td th:text="${pilot.tanggal_lahir}"></td>
+                    <td>
+                        <span th:if="${pilot.jenis_kelamin == 1}">Laki - Laki</span>
+                        <span th:unless="${pilot.jenis_kelamin == 1}">Perempuan</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<div th:include="fragments/fragment :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Detail Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('View Pilot')"></nav>
+<div class="d-flex justify-content-center" th:object="${pilot}">
+    <div class="card mt-2" style="width: 30%">
+        <div class="card-header text-center"><h3>Profil Pilot</h3></div>
+        <div class="card-body">
+        <table class="ml-3" >
+            <tr>
+                <td th:text="'Id'"></td>
+                <td></td>
+                <td th:text="': ' + *{id}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Nama'"></td>
+                <td></td>
+                <td th:text="': ' + *{nama}"></td>
+            </tr>
+            <tr>
+                <td th:text="'NIK'"></td>
+                <td></td>
+                <td th:text="': ' + *{nik}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Jenis Kelamin'"></td>
+                <td></td>
+                <td>
+                    <span th:if="*{jenis_kelamin == 1}">: Laki - Laki</span>
+                    <span th:unless="*{jenis_kelamin == 1}">: Perempuan</span>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="'NIP'"></td>
+                <td></td>
+                <td th:text="': ' + *{nip}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Tempat Lahir'"></td>
+                <td></td>
+                <td th:text="': ' + *{tempat_lahir}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Tanggal Lahir'"></td>
+                <td></td>
+                <td th:text="': ' + *{tanggal_lahir}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Sekolah'"></td>
+                <td></td>
+                <td th:text="': ' + ${akademi.nama}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Maskapai'"></td>
+                <td></td>
+                <td th:text="': ' + ${maskapai.nama}"></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="card w-50 mt-3">
+        <div class="card-body">
+            <div class="card-title text-center"><h3>Jadwal Bertugas</h3></div>
+            <table class="table">
+                <thead class="thead-light table-borderless">
+                <tr>
+                    <th>No</th>
+                    <th>Kode Penerbangan</th>
+                    <th>Waktu</th>
+                    <th>Kota Asal</th>
+                    <th>Kota Tujuan</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${penerbangan.kode}"></td>
+                    <td th:text="${penerbangan.waktu}"></td>
+                    <td th:text="${penerbangan.kota_asal}"></td>
+                    <td th:text="${penerbangan.kota_tujuan}"></td>
+                    <td><a th:href="@{/penerbangan/detail/} + ${penerbangan.id}" class="btn btn-sm btn-primary">Lihat</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:include="fragments/fragment :: footer"></div>
+</body>
+</html>

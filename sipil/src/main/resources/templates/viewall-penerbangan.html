@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View all Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('View All Penerbangan')"></nav>
+<div class="align-content-center mt-5 ml-2 mr-2">
+<a th:href="@{/penerbangan/tambah}" class="btn btn-primary"> Tambah Penerbangan</a>
+<br>
+<h2 class="text-center">Daftar Seluruh Penerbangan</h2>
+<table class="table" style="width: 90%; margin-left: 5%;">
+    <thead class="thead-light table-borderless">
+    <tr>
+        <th>No</th>
+        <th>Id Penerbangan</th>
+        <th>Kode Penerbangan</th>
+        <th>Kota - Asal</th>
+        <th>Kota - Tujuan</th>
+        <th>Waktu</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${penerbangan.id}"></td>
+        <td th:text="${penerbangan.kode}"></td>
+        <td th:text="${penerbangan.kota_asal}"></td>
+        <td th:text="${penerbangan.kota_tujuan}"></td>
+        <td th:text="${penerbangan.waktu}"></td>
+        <td>
+            <a th:href="@{/penerbangan/detail/} + ${penerbangan.id}" class="btn btn-sm btn-primary">Lihat</a>
+            <a th:href="@{/penerbangan/ubah/} + ${penerbangan.id}" class="btn btn-sm btn-warning">Ubah</a>
+            <a th:href="@{/penerbangan/hapus/} + ${penerbangan.id}" class="btn btn-sm btn-danger">Hapus</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${teks != null}" class="text-center text-lg-center">
+    <p th:text="${teks}"></p>
+</div>
+</div>
+<div th:if="${listPenerbangan.size() >= 7}">
+    <div th:include="fragments/fragment :: footer"></div>
+</div>
+<div th:if="${listPenerbangan.size() < 7}">
+    <div th:replace="fragments/fragment :: footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cari Pilot Berdasarkan Maskapai Dengan Penerbangan Terbanyak</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Cari Pilot Berdasarkan Maskapai Dengan Penerbangan Terbanyak')"></nav>
+<div class="d-flex justify-content-center">
+    <div class="card w-50 mt-2">
+        <div class="card-body">
+            <form th:action="@{/cari/pilot/penerbangan-terbanyak}" method="GET">
+                <table>
+                    <tr>
+                        <td>Pilih Kode Maskapai :</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="kodeMaskapai" class="form-control">
+                                <option th:value="${id}" th:text="'Kode Maskapai'"></option>
+                                <option th:each="maskapai : ${listMaskapai}" th:value="${maskapai.kode}" th:text="${maskapai.kode}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit" class=" btn btn-primary">Cari</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:if="${temp == 1}">
+    <div class="d-flex justify-content-center" th:if="${listPilotUrut == null || listPilotUrut.size() == 0}"> <h2>Pilot Tidak Ditemukan</h2></div>
+    <div class="d-flex justify-content-center" th:unless="${listPilotUrut == null || listPilotUrut.size() == 0}">
+        <div class="card w-50 mt-2">
+            <div class="card-header text-center"> Daftar Pilot Berdasarkan Maskapai atau Sekolah</div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td>No</td>
+                        <td>Nama</td>
+                        <td>Nip</td>
+                        <td>Jumlah Penerbangan</td>
+                    </tr>
+                    <tr th:each="pilot, iterationStatus : ${listPilotUrut}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${pilot.nama}"></td>
+                        <td th:text="${pilot.nip}"></td>
+                        <td th:text="${jumlah.get(iterationStatus.index)}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/fragment :: footer"></div>
+</body>
+</html>
