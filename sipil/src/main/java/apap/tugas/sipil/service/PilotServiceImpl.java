@@ -147,8 +147,8 @@ public class PilotServiceImpl implements PilotService {
         if (pilot.getJenis_kelamin() == 1) {
             nip +="1";
         }else{nip += "2";}
-        nip += pilot.getTempat_lahir().substring(0,2);
-        nip += pilot.getNama().charAt(pilot.getNama().length()-1);
+        nip += pilot.getTempat_lahir().substring(0,2).toUpperCase();
+        nip += Character.toUpperCase(pilot.getNama().charAt(pilot.getNama().length()-1));
         Date date = pilot.getTanggal_lahir();
         DateFormat dateFormat = new SimpleDateFormat("ddMM");
         nip += dateFormat.format(date);

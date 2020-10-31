@@ -54,7 +54,7 @@
             <tr>
                 <td th:text="'Tanggal Lahir'"></td>
                 <td></td>
-                <td th:text="': ' + *{tanggal_lahir}"></td>
+                <td th:text="': ' + ${#dates.format(pilot.tanggal_lahir, 'dd MMMM yyyy')}"></td>
             </tr>
             <tr>
                 <td th:text="'Sekolah'"></td>
@@ -89,7 +89,7 @@
                 <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${penerbangan.kode}"></td>
-                    <td th:text="${penerbangan.waktu}"></td>
+                    <td th:text="${#dates.format(penerbangan.waktu, 'dd-MMM-yyyy HH:mm')}"></td>
                     <td th:text="${penerbangan.kota_asal}"></td>
                     <td th:text="${penerbangan.kota_tujuan}"></td>
                     <td><a th:href="@{/penerbangan/detail/} + ${penerbangan.id}" class="btn btn-sm btn-primary">Lihat</a></td>

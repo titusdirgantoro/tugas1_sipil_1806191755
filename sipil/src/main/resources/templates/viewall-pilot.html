@@ -12,7 +12,7 @@
     <a th:href="@{/pilot/tambah}" class="btn btn-primary"> Tambah Pilot</a>
     <br>
     <h2 class="text-center">Daftar Seluruh Pilot</h2>
-    <table class="table">
+    <table class="table" style="width: 90%; margin-left: 5%;">
         <thead class="thead-light table-borderless">
         <tr>
             <th>No</th>
@@ -30,7 +30,7 @@
             <td th:text="${pilot.nama}"></td>
             <td th:text="${pilot.nip}"></td>
             <td th:text="${pilot.nik}"></td>
-            <td th:text="${pilot.tanggal_lahir}"></td>
+            <td th:text="${#dates.format(pilot.tanggal_lahir, 'dd-MMM-yyyy')}"></td>
             <td>
                 <span th:if="${pilot.jenis_kelamin == 1}">Laki - Laki</span>
                 <span th:unless="${pilot.jenis_kelamin == 1}">Perempuan</span>

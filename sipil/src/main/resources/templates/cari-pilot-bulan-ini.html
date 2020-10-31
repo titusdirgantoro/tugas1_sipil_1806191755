@@ -30,7 +30,7 @@
                         <td th:text="${iterationStatus.count}"></td>
                         <td th:text="${pilot.nama}"></td>
                         <td th:text="${pilot.nip}"></td>
-                        <td th:text="${pilot.tanggal_lahir}"></td>
+                        <td th:text="${#dates.format(pilot.tanggal_lahir, 'dd-MMM-yyyy')}"></td>
                         <td>
                             <span th:if="${pilot.jenis_kelamin == 1}">Laki - Laki</span>
                             <span th:unless="${pilot.jenis_kelamin == 1}">Perempuan</span>
@@ -40,10 +40,10 @@
             </div>
         </div>
     </div>
-<div th:if="${listPilotBulanIni.size() >= 7}">
+<div th:if="${listPilotBulanIni.size() >= 9}">
     <div th:include="fragments/fragment :: footer"></div>
 </div>
-<div th:if="${listPilotBulanIni.size() < 7}">
+<div th:if="${listPilotBulanIni.size() < 9}">
     <div th:replace="fragments/fragment :: footer"></div>
 </div>
 </body>

@@ -31,7 +31,7 @@
                 <tr>
                     <td th:text="'Waktu'"></td>
                     <td></td>
-                    <td th:text="': ' + *{waktu}"></td>
+                    <td th:text="': ' + ${#dates.format(penerbangan.waktu, 'dd-MMM-yyyy HH:mm')}"></td>
                 </tr>
                 <tr>
                     <td th:text="'Kota Asal'"></td>
@@ -46,7 +46,7 @@
                 <tr th:if="${listPilotPenerbangan.size() > 0 }">
                     <td th:text="'Tanggal Penugasan'"></td>
                     <td></td>
-                    <td th:text="': ' + ${listPilotPenerbangan.get(listPilotPenerbangan.size()-1).tanggal_penugasan}"></td>
+                    <td th:text="': ' + ${#dates.format(listPilotPenerbangan.get(listPilotPenerbangan.size()-1).tanggal_penugasan, 'dd MMMM yyyy')}"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -61,7 +61,7 @@
 
 <div class="d-flex justify-content-center">
     <div class="w-50">
-        <p>Pilih Pilot :</p>
+        <p><b>Pilih Pilot :</b></p>
         <form th:action="@{/penerbangan/} + ${penerbangan.id} + '/pilot/tambah'" th:object="${pilot_penerbangan}" method="POST">
             <input type="hidden" th:value="${penerbangan.id}" name="penerbangan"/>
             <select name="pilot">
@@ -72,8 +72,8 @@
             </form>
     </div>
 </div>
-<div class="d-flex justify-content-center">
-    <div class="card w-50">
+<div class="d-flex justify-content-center mt-3">
+    <div class="card">
         <div class="card-body">
             <div class="card-title text-center"><h3>DAFTAR PILOT</h3></div>
             <table class="table">
@@ -84,17 +84,19 @@
                     <th>NIP</th>
                     <th>Tanggal Lahir</th>
                     <th>Jenis Kelamin</th>
+                    <th>Tanggal Penugasan</th>
                 </tr>
                 </thead>
                 <tr th:each="pilot, iterationStatus : ${listPilot}">
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${pilot.nama}"></td>
                     <td th:text="${pilot.nip}"></td>
-                    <td th:text="${pilot.tanggal_lahir}"></td>
+                    <td th:text="${#dates.format(pilot.tanggal_lahir, 'dd-MMM-yyyy')}"></td>
                     <td>
                         <span th:if="${pilot.jenis_kelamin == 1}">Laki - Laki</span>
                         <span th:unless="${pilot.jenis_kelamin == 1}">Perempuan</span>
                     </td>
+                    <td th:text="${#dates.format(listPilotPenerbangan.get(iterationStatus.index).tanggal_penugasan, 'dd MMMM yyyy')}"></td>
                 </tr>
             </table>
         </div>
